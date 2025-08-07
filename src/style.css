@@ -1,96 +1,302 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: 'SabonLTStd-Roman';
+  src: url('./fonts/SabonLTStd-Roman.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+@font-face {
+  font-family: 'SabonLTStd-Italic';
+  src: url('./fonts/SabonLTStd-Italic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: italic;
 }
-a:hover {
-  color: #535bf2;
+
+@font-face {
+  font-family: 'Sabon-Small-Caps';
+  src: url('./fonts/Sabon-Small-Caps.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NMRobert-Engraved';
+  src: url('./fonts/NMRobert-Engraved.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
+}
+
+:root {
+  --footer-h: 18vh;
+  --color-red: #D53636;
+  --font-size-p: 2.5vh;
+}
+
+
+body {
+  scroll-snap-type: y mandatory;
+  /* enclenche le snapping vertical */
+  overflow-y: scroll;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  margin: 0;
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  /* conteneur scrollable vertical */
+  overflow-y: auto;
+
+  /* snap *proche* (pas obligatoire) */
+  scroll-snap-type: y proximity;
+
+  /* optionnel: éviter les effets de rebond/scroll chaining */
+  overscroll-behavior: contain;
+
+  z-index: 1;
+  /* ou none */
+  overflow: visible;
+
+}
+
+.italic {
+  font-family: 'SabonLTStd-Italic';
+}
+
+.menu-button {
+  position: fixed;
+  top: 13px;
+  left: 51px;
+  width: 70px;
+  height: 107px;
+  font-family: 'NMRobert-Engraved';
+  font-weight: 200;
+  font-size: 70px;
+  text-align: center;
+  z-index: 3;
+  letter-spacing: -0.18px;
+
+
+}
+
+.menu {
+  position: fixed;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  transition: top 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  z-index: 2;
+}
+
+.menu.visible {
+  top: 0;
+}
+
+.menu-title {
+  text-align: center;
+  font-weight: normal;
+  letter-spacing: 0.48px;
+  margin-bottom: 10vh;
+  margin-top: 10vh;
+  font-family: 'Sabon-Small-Caps';
+  font-weight: 400;
+}
+
+.menu-item {
+  margin-bottom: 25px;
+}
+
+.menu-item a {
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  text-align: center;
+  color: black;
+  font-family: 'Sabon-Small-Caps';
+  font-size: var(--font-size-p);
+  font-weight: normal;
+  letter-spacing: 0.48px;
+}
+
+.menu-item a:hover {
+  color: var(--color-red);
+}
+
+.Table a {
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  text-align: center;
+  color: black;
+  font-family: 'Sabon-Small-Caps';
+  font-size: var(--font-size-p);
+  font-weight: normal;
+  letter-spacing: 0.48px;
+}
+
+.page {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  isolation: isolate;
+  /* <— empêche le footer d’une section de chevaucher les autres */
+  text-align: center;
+  min-height: 100vh;
+  scroll-snap-align: start;
+
+
+}
+
+.page .title-container {
+  top: 0;
+  right: 0;
+  font-weight: normal;
+  min-height: 20vh;
+  background-color: white;
+  position: sticky;
+  text-align: center;
+  padding-top: 125px;
+}
+
+.page .title-container h1 {
+  font-family: 'SabonLTStd-Roman';
+  letter-spacing: 0.48px;
+  font-weight: normal !important;
+  font-size: var(--font-size-p) !important;
+}
+
+.page p {
+  font-family: 'SabonLTStd-Roman';
+  font-size: var(--font-size-p);
+  font-weight: normal;
+  letter-spacing: 0.48px;
+
+}
+
+
+.page-number {
+  bottom: 0;
+  right: 0;
+  font-size: var(--font-size-p);
+  font-weight: normal;
+  min-height: 20vh;
+  background-color: white;
+  position: sticky;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.page-number p {
+  margin-top: 10vh;
+  font-size: var(--font-size-p);
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
+
+
+#editor-note {}
+
+#editor-note {
+  width: 35%;
+  margin: 0 auto;
+  font-size: 22px;
+  /* toute la hauteur de l'écran */
+
+
 }
 
-.card {
-  padding: 2em;
+
+#front-page {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  font-size: var(--font-size-p);
 }
 
-.read-the-docs {
-  color: #888;
+#front-page .title {
+  color: var(--color-red);
+  font: normal normal normal 140px/142px 'NMRobert-Engraved';
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  margin: 20vh 0;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+#front-page img {
+  width: 30vh;
+  height: auto;
+  transform: scale(1.1);
+  transform-origin: top center;
+
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+#front-page .image-container {
+  position: relative;
+  display: inline-block;
+  /* Keep the image and text together */
+  text-align: center;
 }
+
+
+#front-page .hover-text {
+  opacity: 1;
+  font-size: 16px;
+  color: #333;
+  position: absolute;
+  margin-top: 30px;
+  margin-left: 5vh;
+
+}
+
+#front-page .page-number {
+  bottom: -100vh !important;
+}
+
+
+
+
+
+#another-morning {}
+
+#another-morning .title {}
+
+#another-morning p {
+  font-weight: normal;
+  font-family: 'SabonLTStd-Roman';
+  font-size: var(--font-size-p);
+  letter-spacing: 0.48px;
+  color: var(--color-red);
+}
+
+
+
+
+#close-reading {}
+
+#interview {}
+
+#artist-review {}
+
+#colophon {}
